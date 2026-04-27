@@ -43,9 +43,9 @@ public class TestBot extends TelegramLongPollingBot {
     private static final String BTN_MY_RES   = "🏆 So'ngi natijalarim";
 
     public TestBot() {
-        super(Dotenv.load().get("BOT_TOKEN"));
-        this.botUsername = Dotenv.load().get("BOT_USERNAME");
-    }
+    super("8312063746:AAFu-XVsqxvxML6RXUxElnsq3eCt1Lm3L4s"); // BOT_TOKEN
+    this.botUsername = "Magnit_checker_bot";
+}
 
     @Override
     public String getBotUsername() {
