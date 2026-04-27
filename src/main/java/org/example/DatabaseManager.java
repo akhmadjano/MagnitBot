@@ -19,15 +19,20 @@ public class DatabaseManager {
     // ───────────────────────────────────────────────
     // Singleton
     // ───────────────────────────────────────────────
-    private DatabaseManager() {
-        Dotenv env = Dotenv.load();
-        String host = env.get("DB_HOST", "switchback.proxy.rlwy.net");
-        String port = env.get("DB_PORT", "51822");
-        String name = env.get("DB_NAME", "railway");
-        this.user     = env.get("DB_USER", "postgres");
-        this.password = env.get("DB_PASSWORD", "SqKHCfSMJXAweUqgjQlSsaNYpUUbVwMW");
-        this.url      = "jdbc:postgresql://" + host + ":" + port + "/" + name;
-    }
+   private DatabaseManager() {
+    Dotenv env = Dotenv.configure()
+            .ignoreIfMissing() // 🔥 shu qator muhim
+            .load();
+
+    String host = env.get("DB_HOST", "switchback.proxy.rlwy.net");
+    String port = env.get("DB_PORT", "51822");
+    String name = env.get("DB_NAME", "railway");
+
+    this.user = env.get("DB_USER", "postgres");
+    this.password = env.get("DB_PASSWORD", "SqKHCfSMJXAweUqgjQlSsaNYpUUbVwMW");
+
+    this.url = "jdbc:postgresql://" + host + ":" + port + "/" + name;
+}
 
     public static DatabaseManager getInstance() {
         if (instance == null) instance = new DatabaseManager();
