@@ -20,23 +20,13 @@ public class DatabaseManager {
     // Singleton
     // ───────────────────────────────────────────────
     private DatabaseManager() {
-    String dbUrl = "postgresql://postgres:SqKHCfSMJXAweUqgjQlSsaNYpUUbVwMW@switchback.proxy.rlwy.net:51822/railway";
-
-    try {
-        URI uri = new URI(dbUrl);
-
-        this.user = uri.getUserInfo().split(":")[0];
-        this.password = uri.getUserInfo().split(":")[1];
-
-        String host = uri.getHost();
-        int port = uri.getPort();
-        String dbName = uri.getPath().substring(1);
-
-        this.url = "jdbc:postgresql://" + host + ":" + port + "/" + dbName;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Dotenv env = Dotenv.load();
+        String host = env.get("DB_HOST", "switchback.proxy.rlwy.net");
+        String port = env.get("DB_PORT", "51822");
+        String name = env.get("DB_NAME", "railway");
+        this.user     = env.get("DB_USER", "postgres");
+        this.password = env.get("DB_PASSWORD", "SqKHCfSMJXAweUqgjQlSsaNYpUUbVwMW");
+        this.url      = "jdbc:postgresql://" + host + ":" + port + "/" + name;
     }
 
     public static DatabaseManager getInstance() {
